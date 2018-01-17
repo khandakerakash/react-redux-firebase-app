@@ -7,7 +7,10 @@ class SignUp extends Component{
         super(props)
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            error: {
+                message: ''
+            }
         }
     }
 
@@ -16,7 +19,7 @@ class SignUp extends Component{
         const {email, password} = this.state
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
             .catch(error => {
-                console.log('error:', error)
+                this.setState({error})
             })
     }
 
@@ -42,6 +45,7 @@ class SignUp extends Component{
                         onClick={() => this.signUp()}
                     >Sign Up</button>
                 </div>
+                <div>{this.state.error.message}</div>
             </div>
         )
     }
